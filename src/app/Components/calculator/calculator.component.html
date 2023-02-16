@@ -1,0 +1,14 @@
+
+
+<div>
+    <input type="number" [(ngModel)]="val1" placeholder="first number"/>
+    <select [(ngModel)]="operand">
+        <option>+</option>
+        <option>-</option>
+        <option>X</option>
+        <option>/</option>
+    </select>
+    <input type="number" [(ngModel)]="val2" placeholder="first number"/>
+    <button (click)="onSubmit()"><h1>=</h1></button>
+    <span>{{res}}</span>
+</div>

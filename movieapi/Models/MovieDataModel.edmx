@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MovieDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MVCACTOR">
+          <Key>
+            <PropertyRef Name="ACTID" />
+          </Key>
+          <Property Name="ACTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ACTNAME" Type="varchar" MaxLength="55" />
+          <Property Name="ACTGENDER" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="MVCDIRECTOR">
+          <Key>
+            <PropertyRef Name="DIRID" />
+          </Key>
+          <Property Name="DIRID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DIRNAME" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="MVCMOVIECAST">
+          <Key>
+            <PropertyRef Name="ACTID" />
+            <PropertyRef Name="MOVID" />
+          </Key>
+          <Property Name="ACTID" Nullable="false" Type="int" />
+          <Property Name="MOVID" Nullable="false" Type="int" />
+          <Property Name="ROLE" MaxLength="100" Type="varchar" />
+        </EntityType>
+        <EntityType Name="MVCMOVIES">
+          <Key>
+            <PropertyRef Name="MOVID" />
+          </Key>
+          <Property Name="MOVID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MOVTITLE" Type="varchar" MaxLength="255" />
+          <Property Name="MOVYEAR" Type="int" />
+          <Property Name="MOVLANG" Type="varchar" MaxLength="50" />
+          <Property Name="DIRID" Type="int" />
+          <Property Name="Image" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__MVCMOVIEC__ACTID__531856C7">
+          <End Type="Self.MVCACTOR" Multiplicity="1" Role="MVCACTOR" />
+          <End Type="Self.MVCMOVIECAST" Multiplicity="*" Role="MVCMOVIECAST" />
+          <ReferentialConstraint>
+            <Principal Role="MVCACTOR">
+              <PropertyRef Name="ACTID" />
+            </Principal>
+            <Dependent Role="MVCMOVIECAST">
+              <PropertyRef Name="ACTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MVCMOVIEC__MOVID__540C7B00">
+          <End Type="Self.MVCMOVIES" Multiplicity="1" Role="MVCMOVIES" />
+          <End Type="Self.MVCMOVIECAST" Multiplicity="*" Role="MVCMOVIECAST" />
+          <ReferentialConstraint>
+            <Principal Role="MVCMOVIES">
+              <PropertyRef Name="MOVID" />
+            </Principal>
+            <Dependent Role="MVCMOVIECAST">
+              <PropertyRef Name="MOVID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MVCMOVIES__DIRID__503BEA1C">
+          <End Role="MVCDIRECTOR" Type="Self.MVCDIRECTOR" Multiplicity="0..1" />
+          <End Role="MVCMOVIES" Type="Self.MVCMOVIES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MVCDIRECTOR">
+              <PropertyRef Name="DIRID" />
+            </Principal>
+            <Dependent Role="MVCMOVIES">
+              <PropertyRef Name="DIRID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MovieDatabaseModelStoreContainer">
+          <EntitySet Name="MVCACTOR" EntityType="Self.MVCACTOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MVCDIRECTOR" EntityType="Self.MVCDIRECTOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MVCMOVIECAST" EntityType="Self.MVCMOVIECAST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MVCMOVIES" EntityType="Self.MVCMOVIES" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MVCMOVIEC__ACTID__531856C7" Association="Self.FK__MVCMOVIEC__ACTID__531856C7">
+            <End EntitySet="MVCACTOR" Role="MVCACTOR" />
+            <End EntitySet="MVCMOVIECAST" Role="MVCMOVIECAST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MVCMOVIEC__MOVID__540C7B00" Association="Self.FK__MVCMOVIEC__MOVID__540C7B00">
+            <End EntitySet="MVCMOVIES" Role="MVCMOVIES" />
+            <End EntitySet="MVCMOVIECAST" Role="MVCMOVIECAST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MVCMOVIES__DIRID__503BEA1C" Association="Self.FK__MVCMOVIES__DIRID__503BEA1C">
+            <End Role="MVCDIRECTOR" EntitySet="MVCDIRECTOR" />
+            <End Role="MVCMOVIES" EntitySet="MVCMOVIES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MovieDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MVCACTOR">
+          <Key>
+            <PropertyRef Name="ACTID" />
+          </Key>
+          <Property Name="ACTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ACTNAME" Type="String" MaxLength="55" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MVCMOVIECASTs" Relationship="Self.FK__MVCMOVIEC__ACTID__531856C7" FromRole="MVCACTOR" ToRole="MVCMOVIECAST" />
+        </EntityType>
+        <EntityType Name="MVCDIRECTOR">
+          <Key>
+            <PropertyRef Name="DIRID" />
+          </Key>
+          <Property Name="DIRID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DIRNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MVCMOVIES" Relationship="Self.FK__MVCMOVIES__DIRID__503BEA1C" FromRole="MVCDIRECTOR" ToRole="MVCMOVIES" />
+        </EntityType>
+        <EntityType Name="MVCMOVIECAST">
+          <Key>
+            <PropertyRef Name="ACTID" />
+            <PropertyRef Name="MOVID" />
+          </Key>
+          <Property Name="ACTID" Nullable="false" Type="Int32" />
+          <Property Name="MOVID" Nullable="false" Type="Int32" />
+          <Property Name="ROLE" MaxLength="100" FixedLength="false" Unicode="false" Type="String" />
+          <NavigationProperty Name="MVCACTOR" Relationship="Self.FK__MVCMOVIEC__ACTID__531856C7" FromRole="MVCMOVIECAST" ToRole="MVCACTOR" />
+          <NavigationProperty Name="MVCMOVy" Relationship="Self.FK__MVCMOVIEC__MOVID__540C7B00" FromRole="MVCMOVIECAST" ToRole="MVCMOVIES" />
+        </EntityType>
+        <EntityType Name="MVCMOVy">
+          <Key>
+            <PropertyRef Name="MOVID" />
+          </Key>
+          <Property Name="MOVID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MOVTITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MOVYEAR" Type="Int32" />
+          <Property Name="MOVLANG" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIRID" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MVCDIRECTOR" Relationship="Self.FK__MVCMOVIES__DIRID__503BEA1C" FromRole="MVCMOVIES" ToRole="MVCDIRECTOR" />
+          <NavigationProperty Name="MVCMOVIECASTs" Relationship="Self.FK__MVCMOVIEC__MOVID__540C7B00" FromRole="MVCMOVIES" ToRole="MVCMOVIECAST" />
+        </EntityType>
+        <Association Name="FK__MVCMOVIEC__ACTID__531856C7">
+          <End Type="Self.MVCACTOR" Multiplicity="1" Role="MVCACTOR" />
+          <End Type="Self.MVCMOVIECAST" Multiplicity="*" Role="MVCMOVIECAST" />
+          <ReferentialConstraint>
+            <Principal Role="MVCACTOR">
+              <PropertyRef Name="ACTID" />
+            </Principal>
+            <Dependent Role="MVCMOVIECAST">
+              <PropertyRef Name="ACTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MVCMOVIES__DIRID__503BEA1C">
+          <End Role="MVCDIRECTOR" Type="Self.MVCDIRECTOR" Multiplicity="0..1" />
+          <End Role="MVCMOVIES" Type="Self.MVCMOVy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MVCDIRECTOR">
+              <PropertyRef Name="DIRID" />
+            </Principal>
+            <Dependent Role="MVCMOVIES">
+              <PropertyRef Name="DIRID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MVCMOVIEC__MOVID__540C7B00">
+          <End Type="Self.MVCMOVy" Multiplicity="1" Role="MVCMOVIES" />
+          <End Type="Self.MVCMOVIECAST" Multiplicity="*" Role="MVCMOVIECAST" />
+          <ReferentialConstraint>
+            <Principal Role="MVCMOVIES">
+              <PropertyRef Name="MOVID" />
+            </Principal>
+            <Dependent Role="MVCMOVIECAST">
+              <PropertyRef Name="MOVID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MovieEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MVCACTORs" EntityType="Self.MVCACTOR" />
+          <EntitySet Name="MVCDIRECTORs" EntityType="Self.MVCDIRECTOR" />
+          <EntitySet Name="MVCMOVIECASTs" EntityType="Self.MVCMOVIECAST" />
+          <EntitySet Name="MVCMOVIES" EntityType="Self.MVCMOVy" />
+          <AssociationSet Name="FK__MVCMOVIEC__ACTID__531856C7" Association="Self.FK__MVCMOVIEC__ACTID__531856C7">
+            <End EntitySet="MVCACTORs" Role="MVCACTOR" />
+            <End EntitySet="MVCMOVIECASTs" Role="MVCMOVIECAST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MVCMOVIES__DIRID__503BEA1C" Association="Self.FK__MVCMOVIES__DIRID__503BEA1C">
+            <End Role="MVCDIRECTOR" EntitySet="MVCDIRECTORs" />
+            <End Role="MVCMOVIES" EntitySet="MVCMOVIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MVCMOVIEC__MOVID__540C7B00" Association="Self.FK__MVCMOVIEC__MOVID__540C7B00">
+            <End EntitySet="MVCMOVIES" Role="MVCMOVIES" />
+            <End EntitySet="MVCMOVIECASTs" Role="MVCMOVIECAST" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MovieDatabaseModelStoreContainer" CdmEntityContainer="MovieEntities">
+          <EntitySetMapping Name="MVCACTORs">
+            <EntityTypeMapping TypeName="MovieDatabaseModel.MVCACTOR">
+              <MappingFragment StoreEntitySet="MVCACTOR">
+                <ScalarProperty Name="ACTID" ColumnName="ACTID" />
+                <ScalarProperty Name="ACTNAME" ColumnName="ACTNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MVCDIRECTORs">
+            <EntityTypeMapping TypeName="MovieDatabaseModel.MVCDIRECTOR">
+              <MappingFragment StoreEntitySet="MVCDIRECTOR">
+                <ScalarProperty Name="DIRID" ColumnName="DIRID" />
+                <ScalarProperty Name="DIRNAME" ColumnName="DIRNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MVCMOVIECASTs">
+            <EntityTypeMapping TypeName="MovieDatabaseModel.MVCMOVIECAST">
+              <MappingFragment StoreEntitySet="MVCMOVIECAST">
+                <ScalarProperty Name="ACTID" ColumnName="ACTID" />
+                <ScalarProperty Name="MOVID" ColumnName="MOVID" />
+                <ScalarProperty Name="ROLE" ColumnName="ROLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MVCMOVIES">
+            <EntityTypeMapping TypeName="MovieDatabaseModel.MVCMOVy">
+              <MappingFragment StoreEntitySet="MVCMOVIES">
+                <ScalarProperty Name="MOVID" ColumnName="MOVID" />
+                <ScalarProperty Name="MOVTITLE" ColumnName="MOVTITLE" />
+                <ScalarProperty Name="MOVYEAR" ColumnName="MOVYEAR" />
+                <ScalarProperty Name="MOVLANG" ColumnName="MOVLANG" />
+                <ScalarProperty Name="DIRID" ColumnName="DIRID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

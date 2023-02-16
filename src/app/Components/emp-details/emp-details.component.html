@@ -1,0 +1,19 @@
+<div *ngIf="SelectedEmp.Name">
+    <h2>Details of Employee</h2>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img [src]="SelectedEmp.Image" width="160px" height="150px">
+            </div>
+            <div class="col-md-8">
+                <p><input disabled [(ngModel)]="SelectedEmp.id"></p><br>
+                <p><input  [(ngModel)]="SelectedEmp.Name"></p><br>
+                <p><input  [(ngModel)]="SelectedEmp.Address"></p><br>
+                <p><input  [(ngModel)]="SelectedEmp.Salary"></p><br>
+                <p><Button class="btn btn-primary" (click)="invokUpdate(SelectedEmp)"><i class="fa fa-edit"> Update</i></Button>&nbsp;
+                    <Button  class="btn btn-primary" (click)="invokeEmp()"><i class="fa fa-trash-o"> Delete</i></Button></p>
+            </div>
+        </div>
+    </div>
+</div>
